@@ -46,6 +46,13 @@ export default function Home() {
         >
           Todo
         </a>
+        <a
+          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
+          href="/nav"
+          rel="noopener noreferrer"
+        >
+          Bottom Nav Bar
+        </a>
       </main>
     </div>
   );
