@@ -15,32 +15,38 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo }: TodoItemProps
     <motion.div
       className="flex items-center justify-between bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow cursor-pointer text-black"
     >
-      {/* Checkbox + Text */}
       <div className="flex items-center space-x-3">
-        <motion.div
+        {/* 👉 Check box */}
+        <div
           onClick={() => toggleTodo(todo.id)}
           className="w-6 h-6 border-2 border-gray-500 rounded flex items-center justify-center cursor-pointer"
         >
           {todo.completed && (
-            <motion.div
-              className="w-4 h-4 bg-blue-500 rounded-sm"
-            />
+            <div className="w-4 h-4 bg-blue-500 rounded-sm" />
           )}
-        </motion.div>
+        </div>
 
-        <motion.span
-          className={`select-none ${todo.completed ? "line-through text-gray-500" : ""}`}
-        >
-          {todo.text}
-        </motion.span>
+        {/* 👉 Todo Text with Line */}
+        <div className="relative">
+          <span
+            className={`select-none ${todo.completed ? "text-gray-500" : ""}`}
+          >
+            {todo.text}
+          </span>
+
+          {/* 👉 Line-Through */}
+          <div
+            className={`absolute left-0 top-1/2 h-[2px] bg-gray-500 ${
+              todo.completed ? "w-full" : "w-0"
+            }`}
+          />
+        </div>
       </div>
 
-      {/* Delete Button */}
-      <motion.button
-        onClick={() => deleteTodo(todo.id)}
-      >
+      {/* 👉 Delete Button */}
+      <button onClick={() => deleteTodo(todo.id)}>
         <FaTrash size={18} />
-      </motion.button>
+      </button>
     </motion.div>
   );
 }
@@ -60,13 +66,15 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo }: TodoItemProps
 
   3. Todo Text:
      - Fade opacity slightly when checked
-     - Line-through text decoration applied instantly (optional)
+     - Line-through text decoration 
 
   4. Delete Button:
      - Hover: scale up slightly
      - Tap: scale down slightly
 
 */
+
+
 
 
 
@@ -94,8 +102,8 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo }: TodoItemProps
       transition={{ type: "spring", stiffness: 300, damping: 25 }}
       className="flex items-center justify-between bg-white/95 backdrop-blur-sm p-3 rounded-xl shadow cursor-pointer text-black"
     >
- 
       <div className="flex items-center space-x-3">
+        // 👉 Check box
         <motion.div
           onClick={() => toggleTodo(todo.id)}
           className="w-6 h-6 border-2 border-gray-500 rounded flex items-center justify-center cursor-pointer"
@@ -112,16 +120,28 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo }: TodoItemProps
           )}
         </motion.div>
 
-        <motion.span
-          className={`select-none ${todo.completed ? "line-through text-gray-500" : ""}`}
-          animate={{ opacity: todo.completed ? 0.7 : 1 }}
-        >
-          {todo.text}
-        </motion.span>
+        // 👉 Todo Text with Animated Line 
+        <div className="relative">
+          <motion.span
+            className={`select-none ${todo.completed ? "text-gray-500" : ""}`}
+            animate={{ opacity: todo.completed ? 0.7 : 1 }}
+          >
+            {todo.text}
+          </motion.span>
+
+          // 👉 Animated Line-Through 
+          <motion.div
+            initial={false}
+            animate={{
+              width: todo.completed ? "100%" : "0%",
+            }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+            className="absolute left-0 top-1/2 h-[2px] bg-gray-500"
+          />
+        </div>
       </div>
 
-
-
+      👉 Delete Button 
       <motion.button
         onClick={() => deleteTodo(todo.id)}
         whileHover={{ scale: 1.2 }}
@@ -132,6 +152,5 @@ export default function TodoItem({ todo, toggleTodo, deleteTodo }: TodoItemProps
     </motion.div>
   );
 }
-
 
 */
